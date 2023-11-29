@@ -23,7 +23,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <div className='h-full lg:h-screen flex flex-col'>
             <div className=' float-right self-end absolute m-2'>
-            <SwitchTheme/>
+              <SwitchTheme/>
             </div>
             <div className='w-full h-full max-sm:mb-20'>
               {children}

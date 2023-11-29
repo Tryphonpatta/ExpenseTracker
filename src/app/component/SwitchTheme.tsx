@@ -1,8 +1,10 @@
 //SwitchTheme.tsx
 "use client"
 import React, { useEffect } from "react";
-import { FiMoon, FiSun } from "react-icons/fi";
+import { FiMoon } from "react-icons/fi";
 import { useLocalStorage } from "usehooks-ts";
+import { CiLight } from "react-icons/ci";
+
 const SwitchTheme = () => {
   //we store the theme in localStorage to preserve the state on next visit with an initial theme of dark.
   const [theme, setTheme] = useLocalStorage("theme", "dark");
@@ -24,7 +26,7 @@ const SwitchTheme = () => {
       {theme === "dark" ? (
         <FiMoon className="w-5 h-5" />
       ) : (
-        <FiSun className="w-5 h-5" />
+        <CiLight className="w-5 h-5" />
       )}
     </button>
   );
