@@ -28,7 +28,7 @@ export default function RootLayout({
             <div className='w-full h-full max-sm:mb-20'>
               {children}
             </div>
-            <div className=' top-[90%] flex justify-center w-screen fixed'>
+            <div className=' top-[88%] flex justify-center w-screen fixed mb-2'>
               <MenuBar/>
             </div>
           </div>
