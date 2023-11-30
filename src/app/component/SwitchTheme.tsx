@@ -13,7 +13,7 @@ const SwitchTheme = () => {
 
   //toggles the theme
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "retro" : "dark");
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   //modify data-theme attribute on document.body when theme changes
