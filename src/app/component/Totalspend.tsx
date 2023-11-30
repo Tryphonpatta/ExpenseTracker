@@ -1,6 +1,7 @@
 
-export default function Totalspend(){
 
+export default function Totalspend(){
+	
 	return (
 		<div className="w-full h-full flex justify-center items-center">
 			<div className="flex max-sm:flex-col justify-center gap-5">
