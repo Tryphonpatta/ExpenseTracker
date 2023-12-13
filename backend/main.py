@@ -4,6 +4,8 @@ from db import connect_to_mongodb, convert_to_json
 import pymongo
 import json
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+
 
 app = FastAPI()
 app.add_middleware(
@@ -13,6 +15,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+class Expense(BaseModel):
+    data : str
+    food : int
+    travel : int
+    etc : int
+    
+class FixExpense(BaseModel):
+    cate :str
+    value : int
+    date : str
 
 @app.get("/")
 async def root():
@@ -42,4 +55,28 @@ async def root(date):
     # print(data[0])
     result_json = [convert_to_json(i) for i in data]
     client.close()
+    if not result_json:
+        temp = Expense(data=date,food=0,travel=0,etc=0)
+        temp_json = json.dumps(temp.json(), indent=2)
+        await post_expense(temp)
+        return temp_json
     return result_json[0]
+
+@app.post("/addexpense")
+async def post_expense(expense: Expense):
+    client, database = connect_to_mongodb()
+    collection_name = "nixzaga"
+    collection = database[collection_name]
+    result = collection.insert_one(expense.__dict__)
+    return JSONResponse(content={"message": "Expense added successfully"})
+
+@app.post("/fixexpense/")
+async def post_expense(expense: FixExpense):
+    client, database = connect_to_mongodb()
+    collection_name = "nixzaga"
+    collection = database[collection_name]
+    update_data_dict = expense.dict(exclude_unset=True)
+    
+    result = collection.update_one({"date": expense.date},{"$inc" : {update_data_dict["cate"]: int(update_data_dict["value"])}})
+    print(update_data_dict)
+    return JSONResponse(content={"message": "Expense added successfully"})

@@ -9,10 +9,10 @@ interface Status {
 
 interface StatusProps {
 	date : string;
-
+	refresh : boolean
 }
 
-export default function Status({date} : StatusProps) {
+export default function Status({date,refresh} : StatusProps) {
 	const [status,setStatus] = useState<Status>();
 
 	const getdata = async () => {
@@ -26,7 +26,7 @@ export default function Status({date} : StatusProps) {
 
 	useEffect(() => {
 		getdata();
-	},[])
+	},[refresh])
 
 	return (
 		<div className="">
