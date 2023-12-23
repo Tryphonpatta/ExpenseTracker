@@ -2,7 +2,6 @@
 import React,{useState,useEffect} from 'react'
 import Form from './form';
 import axios from 'axios';
-import { set } from 'mongoose';
 interface Status {
 	food : number;
 	travel : number;
@@ -44,7 +43,7 @@ export default function Status({date} : StatusProps) {
             travel : travel,
 			etc : etc
         });
-    }
+	}
 
 	useEffect(() => {
 		getdata();

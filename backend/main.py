@@ -23,7 +23,7 @@ class Expense(BaseModel):
     etc : int
     
 
-@app.get("/")
+@app.get("/income/{date}")
 async def root():
     client, database = connect_to_mongodb()
     collection_name = "month_income"
@@ -35,6 +35,16 @@ async def root():
         data.append(doc)
     # print(data[0])
     result_json = [convert_to_json(i) for i in data]
+    client.close()
+    return result_json
+
+@app.get("/expense/{month}")
+async def root(month):
+    client, database = connect_to_mongodb()
+    collection_name = "nixzaga"
+    collection = database[collection_name]
+    result = collection.find({"date": {"$regex" :month + '$'}})
+    result_json = [convert_to_json(i) for i in result]
     client.close()
     return result_json
 
